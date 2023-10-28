@@ -4,12 +4,13 @@ import * as cors from "cors";
 import * as cookieParser from "cookie-parser";
 import * as morgan from "morgan";
 
-import { Request, Response } from "express";
+import {NextFunction, Request, Response} from "express";
 import { AppDataSource } from "./data-source";
 import { Routes } from "./routes";
 import { User } from "./entity/User";
 
 import config from './config/index';
+import handleError from "./middleware/handleErrors";
 
 AppDataSource.initialize().then(async () => {
 
@@ -33,6 +34,7 @@ AppDataSource.initialize().then(async () => {
             });
     });
 
+    app.use(handleError)
     // start express server
     app.listen(config.port)
 
