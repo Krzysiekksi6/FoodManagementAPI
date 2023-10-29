@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
 
 
 @Entity()
-// @Entity({ schema: "roznosci", name: "User" })
+
 export class User {
     /**
      * @openapi
