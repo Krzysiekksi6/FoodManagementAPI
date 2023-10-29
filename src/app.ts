@@ -9,6 +9,8 @@ import {validationResult} from "express-validator";
 import { Routes } from "./routes";
 import { User } from "./entity/User";
 import handleError from "./middleware/handleErrors";
+import swaggerDocs from './utils/swagger';
+import config from "./config";
 
     // create express app
     const app = express()
@@ -33,9 +35,9 @@ import handleError from "./middleware/handleErrors";
                 }
             });
     });
-
+    swaggerDocs(app, config.port)
     app.use(handleError)
-    // start express server
+
 
 
 export default app;
