@@ -15,11 +15,12 @@ export class UserController {
 
 
         const user = await this.userRepository.findOne({
-            where: { id }
+            where: { id
+            }
         })
 
         if (!user) {
-            throw Error("unregistered user")
+            throw Error("unregistered  user")
         }
         return user
     }
