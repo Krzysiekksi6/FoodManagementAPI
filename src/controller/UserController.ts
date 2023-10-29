@@ -19,7 +19,7 @@ export class UserController {
         })
 
         if (!user) {
-            return "unregistered user"
+            throw Error("unregistered user")
         }
         return user
     }
@@ -39,12 +39,11 @@ export class UserController {
     async remove(request: Request, response: Response, next: NextFunction) {
         const id = parseInt(request.params.id)
 
-        let userToRemove = await this.userRepository.findOneBy({ id })
+        const userToRemove = await this.userRepository.findOneBy({ id })
 
         if (!userToRemove) {
-            return "this user not exist"
+            throw Error("this user not exist");
         }
-
         await this.userRepository.remove(userToRemove)
 
         return "user has been removed"
