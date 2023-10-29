@@ -6,7 +6,7 @@ import * as morgan from "morgan";
 import {NextFunction, Request, Response} from "express";
 import {validationResult} from "express-validator";
 
-import { Routes } from "./routes";
+import { Routes } from "./routes/routes";
 import { User } from "./entity/User";
 import handleError from "./middleware/handleErrors";
 import swaggerDocs from './utils/swagger';
