@@ -1,0 +1,1 @@
+export type UnitOfMeasure = "g" | "kg" | "ml" | "l" | "szt" | "łyżka stołowa" | "łyżeczka" | "szklanla";

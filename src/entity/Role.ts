@@ -32,7 +32,7 @@ import { User } from "./User";
  *         - Admin
  *       description: Available user roles.
  */
-@Entity()
+@Entity('role')
 export class Role {
   @PrimaryGeneratedColumn()
   id: number;

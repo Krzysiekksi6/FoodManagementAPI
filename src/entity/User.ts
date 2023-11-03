@@ -5,6 +5,8 @@ import {
   Column,
   ManyToMany,
   JoinTable,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from "typeorm";
 
 import { Role } from "./Role";
@@ -42,8 +44,8 @@ import { Role } from "./Role";
  *             $ref: '#/components/schemas/Role'
  *           description: The roles assigned to the user.
  */
-@Entity()
-export class User extends BaseEntity{
+@Entity('user')
+export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -55,6 +57,12 @@ export class User extends BaseEntity{
 
   @Column({ nullable: true })
   refresh_token: string;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 
   @ManyToMany(() => Role, (role) => role.users)
   @JoinTable()
