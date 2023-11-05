@@ -1,15 +1,18 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToMany} from "typeorm";
-import {Product} from "./Product";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import { User } from './User';
+import { ShoppingListItem } from './ShoppingListItem';
 
 @Entity()
 export class ShoppingList {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @ManyToOne(() => User, user => user.shoppingLists)
+  userId: User;
 
-    @Column({type: 'date'})
-    date: Date;
+  @Column()
+  created_at: Date;
 
-    @ManyToMany(() => Product, product => product.shoppingLists)
-    products: Product[];
+  @OneToMany(() => ShoppingListItem, shoppingListItem => shoppingListItem.shoppingListId)
+  items: ShoppingListItem[];
 }

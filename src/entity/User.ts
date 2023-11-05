@@ -1,16 +1,15 @@
 import {
   Entity,
-  BaseEntity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToMany,
-  JoinTable,
-  CreateDateColumn,
-  UpdateDateColumn,
+  OneToMany,
+  ManyToOne,
+  BaseEntity
 } from "typeorm";
-
-import { Role } from "./Role";
-
+import { UserRole } from "./UserRole";
+import { InventoryItem } from "./InventoryItem";
+import { UserDiet } from "./UserDiet";
+import { ShoppingList } from "./ShoppingList";
 /**
  * @openapi
  * components:
@@ -44,7 +43,7 @@ import { Role } from "./Role";
  *             $ref: '#/components/schemas/Role'
  *           description: The roles assigned to the user.
  */
-@Entity('user')
+@Entity("user")
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -55,16 +54,33 @@ export class User extends BaseEntity {
   @Column()
   password: string;
 
-  @Column({ nullable: true })
+  @Column()
   refresh_token: string;
 
-  @CreateDateColumn()
+  @Column()
+  first_name: string; // Dodane pole imienia
+
+  @Column()
+  last_name: string; // Dodane pole nazwiska
+
+  @Column()
+  email: string; // Dodane pole adresu e-mail
+
+  @Column()
   created_at: Date;
 
-  @UpdateDateColumn()
+  @Column()
   updated_at: Date;
 
-  @ManyToMany(() => Role, (role) => role.users)
-  @JoinTable()
-  roles: Role[];
+  @ManyToOne(() => UserRole, (role) => role.users)
+  roleId: UserRole;
+
+  @OneToMany(() => InventoryItem, (inventoryItem) => inventoryItem.userId)
+  inventoryItems: InventoryItem[];
+
+  @OneToMany(() => UserDiet, (userDiet) => userDiet.userId)
+  userDiets: UserDiet[];
+
+  @OneToMany(() => ShoppingList, (shoppingList) => shoppingList.userId)
+  shoppingLists: ShoppingList[];
 }

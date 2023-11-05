@@ -1,20 +1,49 @@
-import {Entity, PrimaryGeneratedColumn, Column,OneToMany, ManyToMany, JoinTable} from "typeorm";
-import { RecipeRow } from "./Recipe/RecipeRow";
-import {ShoppingList} from "./ShoppingList";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  ManyToOne,
+} from "typeorm";
 
-@Entity()
+import { InventoryItem } from "./InventoryItem";
+import { DietCategory } from "./DietCategory";
+import { Ingredient } from "./Ingredient";
+import { ShoppingListItem } from "./ShoppingListItem";
+@Entity("product")
 export class Product {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @Column()
+  name: string;
 
-    @Column()
-    name: string;
+  @Column()
+  calories: number;
 
-    @OneToMany(() => RecipeRow, recipeRow => recipeRow.products)
-    recipeRows: RecipeRow[];
+  @Column()
+  protein: number;
 
-    @ManyToMany(() => ShoppingList, shoppingList => shoppingList.products)
-    @JoinTable()
-    shoppingLists: ShoppingList[];
+  @Column()
+  carbs: number;
+
+  @Column()
+  fat: number;
+
+  @Column()
+  shelfLifeDays: number;
+
+  @ManyToOne(() => DietCategory, (dietCategory) => dietCategory.products)
+  dietCategoryId: DietCategory;
+
+  @OneToMany(() => InventoryItem, (inventoryItem) => inventoryItem.productId)
+  inventoryItems: InventoryItem[];
+
+  @OneToMany(() => Ingredient, (ingredient) => ingredient.productId)
+  ingredients: Ingredient[];
+  @OneToMany(
+    () => ShoppingListItem,
+    (shoppingListItem) => shoppingListItem.productId
+  )
+  shoppingListItems: ShoppingListItem[];
 }

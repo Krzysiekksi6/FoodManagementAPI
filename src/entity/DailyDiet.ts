@@ -1,11 +1,20 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
-import { DailyDiet } from './DailyDiet';
+import { WeeklyDiet } from './WeeklyDiet';
 import { DailyMeal } from './DailyMeal';
 
 @Entity()
-export class Meal {
+export class DailyDiet {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @ManyToOne(() => WeeklyDiet, weeklyDiet => weeklyDiet.dailyDiets)
+  weeklyDietId: WeeklyDiet;
+
+  @Column()
+  dayOfWeek: string;
+
+  @Column()
+  date: Date;
 
   @Column()
   totalCalories: number;
@@ -19,9 +28,6 @@ export class Meal {
   @Column()
   totalFat: number;
 
-  @ManyToOne(() => DailyDiet, dailyDiet => dailyDiet.dailyMeals)
-  dailyDiet: DailyDiet;
-
-  @OneToMany(() => DailyMeal, dailyMeal => dailyMeal.mealId)
+  @OneToMany(() => DailyMeal, dailyMeal => dailyMeal.dailyDietId)
   dailyMeals: DailyMeal[];
 }

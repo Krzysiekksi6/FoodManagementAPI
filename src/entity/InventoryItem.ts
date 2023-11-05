@@ -1,30 +1,31 @@
 import {
-    Entity, PrimaryGeneratedColumn, Column,
-    ManyToOne, JoinColumn
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
 } from "typeorm";
 import { User } from "./User";
 import { Product } from "./Product";
 
-@Entity()
+@Entity("inventory_item")
 export class InventoryItem {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @ManyToOne(() => User, user => user.inventoryItems)
+  userId: User;
 
-    @ManyToOne(() => Product, product => product.id)
-    @JoinColumn({ name: "product_id" })  // opcjonalnie, jeśli chcesz określić nazwę kolumny klucza obcego
-    product: Product;
+  @ManyToOne(() => Product, product => product.inventoryItems)
+  productId: Product;
 
-    @ManyToOne(() => User, user => user.id)
-    @JoinColumn({ name: "user_id" })  // podobnie jak powyżej
-    user: User;
+  @Column()
+  purchaseDate: Date;
 
-    @Column()
-    quantity: number;
+  @Column()
+  expiryDate: Date;
 
-    @Column({ type: 'date' })
-    purchaseDate: Date;
+  @Column()
+  quantity: number;
 
-    @Column({ type: 'date' })
-    expiryDate: Date;
 }

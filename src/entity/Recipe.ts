@@ -1,18 +1,27 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToMany} from "typeorm";
-import {Product} from "./Product";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
+import { Ingredient } from './Ingredient';
 
-@Entity()
+@Entity("recipe")
 export class Recipe {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @Column()
+  name: string;
 
-    @Column()
-    name: string;
+  @Column()
+  calories: number;
 
-    @Column()
-    description: string;
+  @Column()
+  protein: number;
 
-    @ManyToMany(() => Product, product => product.recipes)
-    products: Product[];
+  @Column()
+  carbs: number;
+
+  @Column()
+  fat: number;
+
+  @ManyToMany(() => Ingredient)
+  @JoinTable()
+  ingredients: Ingredient[];
 }

@@ -32,17 +32,17 @@ import { User } from "./User";
  *         - Admin
  *       description: Available user roles.
  */
-@Entity('role')
-export class Role {
-  @PrimaryGeneratedColumn()
-  id: number;
+// @Entity('role')
+// export class Role {
+//   @PrimaryGeneratedColumn()
+//   id: number;
 
-  @Column({
-    type: "enum",
-    enum: UserRole,
-  })
-  name: UserRole;
+//   @Column({
+//     type: "enum",
+//     enum: UserRole,
+//   })
+//   name: UserRole;
 
-  @ManyToMany(() => User, (user) => user.roles)
-  users: User[];
-}
+//   @ManyToMany(() => User, (user) => user.roles)
+//   users: User[];
+// }
