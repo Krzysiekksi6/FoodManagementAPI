@@ -1,0 +1,118 @@
+Table User {
+  id number [primary key]
+  username string
+  password string
+  refresh_token string
+  created_at Date
+  updated_at Date
+  roleId number [ref: > UserRole.id]
+}
+
+Table UserRole {
+  id number [primary key]
+  name string [primary key]
+}
+
+Table Product {
+  id number [primary key]
+  name string
+  calories number
+  protein number
+  carbs number
+  fat number
+  shelfLifeDays number
+  dietCategoryId number [ref: > DietCategory.id]
+}
+
+Table DietCategory {
+  id number [primary key]
+  name string
+  description string
+}
+
+Table InventoryItem {
+  id number [primary key]
+  userId number [ref: > User.id]
+  productId number [ref: > Product.id]
+  purchaseDate Date
+  expiryDate Date [note: "Obliczane na podstawie daty zakupu i shelfLifeDays z produktu"]
+}
+
+Table Recipe {
+  id number [primary key]
+  name string
+  calories number [note: "Suma kalorii z produktów"]
+  protein number [note: "Suma białka z produktów"]
+  carbs number [note: "Suma węglowodanów z produktów"]
+  fat number [note: "Suma tłuszczu z produktów"]
+  ingredients Ingredient[] [ref: < Ingredient.id]
+}
+
+Table Ingredient {
+  id number [primary key]
+  productId number [ref: > Product.id]
+  quantity number
+}
+
+
+Table Diet {
+  id number [primary key]
+  name string [note: "Nazwa diety"]
+  description string [note: "Opis diety"]
+  durationWeeks number
+  caloriesPerDay number
+  dietCategoryId number [ref: > DietCategory.id]
+}
+
+Table WeeklyDiet {
+  id number [primary key]
+  dietId number [ref: > Diet.id]
+  weekName string [note: "Nazwa tygodnia"]
+}
+
+Table DailyDiet {
+  id number [primary key]
+  weeklyDietId number [ref: > WeeklyDiet.id]
+  dayOfWeek string [note: "Dzień tygodnia"]
+  date Date
+  totalCalories number
+  totalProtein number
+  totalCarbs number
+  totalFat number
+}
+
+Table DailyMeal {
+  id number [primary key]
+  mealId number [ref: > Meal.id]
+  recipeId number [ref: > Recipe.id]
+  ingredientId number [ref: > Ingredient.id]
+}
+
+Table Meal {
+  id number [primary key]
+  totalCalories number
+  totalProtein number
+  totalCarbs number
+  totalFat number
+  dailyDietId number [ref: > DailyDiet.id]
+}
+
+Table UserDiet {
+  id number [primary key]
+  userId number [ref: > User.id]
+  dietId number [ref: > Diet.id]
+}
+
+Table ShoppingList {
+  id number [primary key]
+  userId number [ref: > User.id]
+  created_at Date
+}
+
+Table ShoppingListItem {
+  id number [primary key]
+  shoppingListId number [ref: > ShoppingList.id]
+  productId number [ref: > Product.id]
+  quantity number
+  added_at Date
+}
