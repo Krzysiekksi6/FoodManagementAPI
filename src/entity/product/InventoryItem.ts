@@ -5,7 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from "typeorm";
-import { User } from "./User";
+import { User } from "../user/User";
 import { Product } from "./Product";
 
 @Entity("inventory_item")
@@ -13,10 +13,10 @@ export class InventoryItem {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, user => user.inventoryItems)
+  @ManyToOne(() => User, (user) => user.inventoryItems)
   userId: User;
 
-  @ManyToOne(() => Product, product => product.inventoryItems)
+  @ManyToOne(() => Product, (product) => product.inventoryItems)
   productId: Product;
 
   @Column()
@@ -27,5 +27,4 @@ export class InventoryItem {
 
   @Column()
   quantity: number;
-
 }

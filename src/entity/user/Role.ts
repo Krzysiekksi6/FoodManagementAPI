@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToMany } from "typeorm";
-import { UserRole } from "../types/UserRole";
+import { UserRole } from "../../types/UserRole";
 import { User } from "./User";
 
 /**

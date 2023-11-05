@@ -5,8 +5,8 @@ import {
   ManyToOne,
   JoinColumn,
 } from "typeorm";
-import { Product } from "./Product";
-import { Recipe } from "./Recipe";
+import { Product } from "./product/Product";
+import { Recipe } from "./recipe/Recipe";
 
 @Entity("ingredient")
 export class Ingredient {

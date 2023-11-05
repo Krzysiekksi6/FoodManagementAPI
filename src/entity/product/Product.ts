@@ -7,9 +7,9 @@ import {
 } from "typeorm";
 
 import { InventoryItem } from "./InventoryItem";
-import { DietCategory } from "./DietCategory";
-import { Ingredient } from "./Ingredient";
-import { ShoppingListItem } from "./ShoppingListItem";
+import { DietCategory } from "../diet/DietCategory";
+import { Ingredient } from "../Ingredient";
+import { ShoppingListItem } from "../shooping/ShoppingListItem";
 @Entity("product")
 export class Product {
   @PrimaryGeneratedColumn()

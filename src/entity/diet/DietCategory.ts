@@ -5,7 +5,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Product } from "./Product";
+import { Product } from "../product/Product";
 import { Diet } from "./Diet";
 
 @Entity("diet_category")

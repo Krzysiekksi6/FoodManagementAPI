@@ -4,12 +4,12 @@ import {
   Column,
   OneToMany,
   ManyToOne,
-  BaseEntity
+  BaseEntity,
 } from "typeorm";
 import { UserRole } from "./UserRole";
-import { InventoryItem } from "./InventoryItem";
+import { InventoryItem } from "../product/InventoryItem";
 import { UserDiet } from "./UserDiet";
-import { ShoppingList } from "./ShoppingList";
+import { ShoppingList } from "../shooping/ShoppingList";
 /**
  * @openapi
  * components:
